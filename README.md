@@ -53,3 +53,7 @@ MIT
 ---
 
 If this is useful, star the repo and share what you discovered.
+
+## See also
+
+[Yggdrasil](https://github.com/krzysztofdudek/Yggdrasil) – your agent keeps forgetting your architecture, constraints, and past decisions. Yggdrasil gives your repository persistent semantic memory, so each task starts with the right context instead of another giant prompt.

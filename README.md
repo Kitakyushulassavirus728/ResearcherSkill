@@ -1,3 +1,5 @@
+<img width="1376" height="768" alt="Gemini_Generated_Image_5z6cxx5z6cxx5z6c" src="https://github.com/user-attachments/assets/02c3c4cd-fe2a-4fcd-b414-29bd84f5a741" />
+
 # Researcher Skill
 
 **One file. Your AI coding agent becomes a scientist.**

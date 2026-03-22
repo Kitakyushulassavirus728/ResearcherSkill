@@ -1,4 +1,4 @@
-# researcher-skill
+# Researcher Skill
 
 **One file. Your AI coding agent becomes a scientist.**
 

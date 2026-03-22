@@ -4,7 +4,7 @@
 
 **One file. Your AI coding agent becomes a scientist.**
 
-Drop `researcher.md` into Claude Code, Cursor, or any agent that reads markdown. It will design experiments, test hypotheses, discard what fails, keep what works — 30+ experiments overnight while you sleep.
+Drop `researcher.md` into Claude Code, Codex, or any agent. It will design experiments, test hypotheses, discard what fails, keep what works — 30+ experiments overnight while you sleep.
 
 ## What it looks like running
 

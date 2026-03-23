@@ -46,6 +46,8 @@ Generalizes [autoresearch](https://github.com/karpathy/autoresearch) beyond ML: 
 
 All experiment history lives in an untracked `.lab/` directory that survives all git operations — git manages code, `.lab/` manages knowledge.
 
+**Want the full walkthrough?** Read the [guide](GUIDE.md). It walks through a complete example from start to finish.
+
 ## License
 
 MIT

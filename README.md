@@ -29,6 +29,12 @@ Drop `researcher.md` into Claude Code, Codex, or any agent. It will design exper
 
 *Example is simulated. The skill works on any codebase — run it and share your real results.*
 
+**Same loop, different problems:**
+- `npm run build` takes 40s → agent gets it to 18s
+- prompt returns wrong format 30% of the time → agent gets it to 3%
+- API p99 is 200ms → agent finds the bottleneck and cuts it to 80ms
+- document parser misses edge cases → agent improves match rate from 74% to 91%
+
 ## What can I research?
 
 Anything where you can measure or evaluate a result:

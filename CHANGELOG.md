@@ -11,9 +11,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 - `CHANGELOG.md` — changelog following Keep a Changelog format
-
-### Added
 - Before building a qualitative rubric, the skill now asks the user whether they already know their criteria or need help figuring them out
+- GitHub Actions pipeline that automatically creates a GitHub Release on every version tag push, with release notes extracted from `CHANGELOG.md`
 
 ## [1.0.0] - 2026-03-23
 

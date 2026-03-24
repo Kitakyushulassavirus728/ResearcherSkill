@@ -46,7 +46,7 @@ Before any experiment, understand the problem. Ask these questions conversationa
 2. **Metrics** — How do we measure success?
    - **Primary metric** (required): drives keep/discard decisions
      - *Quantitative*: a command that outputs a number
-     - *Qualitative*: agent judgment against a rubric (see Qualitative Rubric below)
+     - *Qualitative*: agent judgment against a rubric (see Qualitative Rubric below). Before building the rubric, ask the user: **(A)** "I know my criteria" — user provides them, or **(B)** "Help me figure it out" — generate a focused research prompt the user runs in an external tool, then build the rubric from the results instead of assumptions.
    - **Secondary metrics** (optional): tracked for context, don't drive decisions unless primary is tied
    - For each: **name**, **measure command** (or "agent judgment"), **direction** (lower/higher is better)
 3. **Scope** — What files/areas can we modify?

@@ -47,6 +47,26 @@ All experiment history lives in an untracked `.lab/` directory. Git manages code
 
 **Want the full walkthrough?** Read the [guide](GUIDE.md). It walks through a complete example from start to finish.
 
+## FAQ
+
+**How is this different from autoresearch?**
+Autoresearch's core loop is universal, but the repo is wired to `train.py`, `val_bpb`, and GPU training. To use it on something else you'd rewrite the setup. This gives you that loop ready to go for any codebase.
+
+**When would I use this instead of ML?**
+It's not instead of ML. ML is one possible domain. This works on anything where the agent can try things, measure, and iterate. Code, scripts, documents, configs. Slow builds, flaky tests, API latency, prompt accuracy.
+
+**How does it measure success for non-ML code?**
+Whatever you can measure. Test pass rate, benchmark output, type check errors, build time. You set it up in the discovery phase. The agent asks what to measure and how. If you can run a command and get a number, that's your metric. For cases where there's no command to run, the agent scores against a qualitative rubric you define together. That part is less precise but the rest of the loop stays the same.
+
+**How does convergence detection work?**
+Both numerical and pattern-based. Metric plateau (<0.5% over last 5 keeps) is numerical. 5+ discards in a row, same code area modified 3+ times, alternating keep/discard on similar changes are pattern-based. The agent checks a signals table after every experiment and decides what to do. Not a hard-coded state machine, more like a checklist of "if you see this, try that."
+
+**Can it improve itself?**
+Sort of. The skill was optimized using the skill itself. A research document about how LLMs process instructions (attention decay, primacy/recency, instruction budgets) was used as criteria, and the agent ran the loop against its own prompt. Not fully recursive, but the loop was: research → skill → use skill to improve skill.
+
+**Can't I just ask Claude to build this from the autoresearch repo?**
+You can try. This saves you the work and includes things autoresearch doesn't have: thought experiments, non-linear branching, convergence detection, qualitative metrics, session resume.
+
 ## License
 
 MIT

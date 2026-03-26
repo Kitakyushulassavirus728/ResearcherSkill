@@ -6,7 +6,8 @@
 
 [![Latest Release](https://img.shields.io/github/v/release/krzysztofdudek/ResearcherSkill)](https://github.com/krzysztofdudek/ResearcherSkill/releases/latest)
 [![License](https://img.shields.io/github/license/krzysztofdudek/ResearcherSkill)](LICENSE)
-[![GitHub Stars](https://img.shields.io/github/stars/krzysztofdudek/ResearcherSkill)](...) 
+[![GitHub Stars](https://img.shields.io/github/stars/krzysztofdudek/ResearcherSkill)](...)
+[![Discord](https://img.shields.io/badge/Discord-Join%20Community-5865F2?logo=discord&logoColor=white)](https://discord.gg/SZTbgsH8Wm)
 
 Drop `researcher.md` into Claude Code, Codex, or any agent. It will design experiments, test hypotheses, discard what fails, keep what works — 30+ experiments overnight while you sleep.
 
@@ -79,6 +80,15 @@ MIT
 
 **[Yggdrasil](https://github.com/krzysztofdudek/Yggdrasil)** — the agent experiments on your code. But does it understand what it's working on? Semantic memory for repositories.
 
+
+---
+
 <div align="center">
   <img src="yggdrasil.svg" alt="Yggdrasil" width="150" />
+  <br/><br/>
+  <a href="https://discord.gg/SZTbgsH8Wm">
+    <img src="https://img.shields.io/badge/Discord-Join%20Community-5865F2?logo=discord&logoColor=white" alt="Discord" />
+  </a>
+  <br/>
+  <sub>Building something similar or have questions? Join the Discord.</sub>
 </div>

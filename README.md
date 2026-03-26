@@ -6,6 +6,7 @@
 
 [![Latest Release](https://img.shields.io/github/v/release/krzysztofdudek/ResearcherSkill)](https://github.com/krzysztofdudek/ResearcherSkill/releases/latest)
 [![License](https://img.shields.io/github/license/krzysztofdudek/ResearcherSkill)](LICENSE)
+[![GitHub Stars](https://img.shields.io/github/stars/krzysztofdudek/ResearcherSkill)](...) 
 
 Drop `researcher.md` into Claude Code, Codex, or any agent. It will design experiments, test hypotheses, discard what fails, keep what works — 30+ experiments overnight while you sleep.
 

@@ -78,3 +78,7 @@ MIT
 ## See also
 
 **[Yggdrasil](https://github.com/krzysztofdudek/Yggdrasil)** — the agent experiments on your code. But does it understand what it's working on? Semantic memory for repositories.
+
+<div align="center">
+  <img src="yggdrasil.svg" alt="Yggdrasil" width="150" />
+</div>

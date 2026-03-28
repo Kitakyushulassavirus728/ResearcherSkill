@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.1.1] - 2026-03-28
+
+### Changed
+- Experiment commit discipline now uses structured commit messages (`experiment #{N}: description` with branch, parent, hypothesis)
+- Each branch holds only keeps — DISCARD/CRASH use `git reset --hard HEAD~1` (SHA preserved in `results.tsv`)
+- Forking from any experiment (including discards) via new branch from SHA, with `branches.md` tracking genealogy
+- Distinguished repo-file experiments (tracked files) from lab-only experiments — commit rules only apply to the former
+- `git log --oneline` on a research branch now reads as a clean line of progress (gaps in numbering = discards or other branches)
+
 ## [1.1.0] - 2026-03-24
 
 ### Added
@@ -24,6 +33,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `GUIDE.md` — detailed usage guide
 - FAQ
 
-[Unreleased]: https://github.com/krzysztofdudek/ResearcherSkill/compare/v1.1.0...HEAD
+[Unreleased]: https://github.com/krzysztofdudek/ResearcherSkill/compare/v1.1.1...HEAD
+[1.1.1]: https://github.com/krzysztofdudek/ResearcherSkill/compare/v1.1.0...v1.1.1
 [1.1.0]: https://github.com/krzysztofdudek/ResearcherSkill/compare/v1.0.0...v1.1.0
 [1.0.0]: https://github.com/krzysztofdudek/ResearcherSkill/releases/tag/v1.0.0

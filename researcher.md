@@ -175,6 +175,18 @@ Always consider results from ALL branches when thinking. Mark exhausted branches
 
 Every 10 real experiments: re-run current HEAD, compare to recorded best. If regressed >2%, log drift and consider forking from the best experiment.
 
+### Metric Revision
+
+When the current metric is flawed — dimensions are unmeasurable from output, scale doesn't differentiate quality, or rubric misses what actually matters — revise it mid-series:
+
+1. **Log the problem** — in `.lab/log.md`, describe what is wrong with the current metric and why (e.g., which dimensions always score neutral, what the metric fails to capture)
+2. **Define new metric** — in `.lab/config.md`, add a `## Metric v2` section (keep v1 intact). Include: date, what changed, rationale for each dropped/added/modified dimension
+3. **Re-score all keeps** — evaluate every existing keep with the new metric. This is mandatory — without re-scoring, the trend in `results.tsv` is meaningless because you cannot tell whether improvement came from the experiment or the metric change
+4. **Mark re-scored rows** — append new rows to `results.tsv` with a version suffix on the experiment number (e.g., `2v2` for experiment #2 re-scored under metric v2). Original rows stay untouched for audit
+5. **Continue** — the new metric applies to all experiments from this point forward. Update baseline in config if re-scoring changed its value
+
+Metric revision is expensive (re-scoring every keep), so do it once and get it right. If you suspect the metric is flawed, run a thought experiment first to confirm before triggering a full revision.
+
 ---
 
 ## Phase 4: Wrap-Up
@@ -231,6 +243,7 @@ Tools when you're stuck, not a menu to follow. You have complete freedom to inve
 | 2+ timeouts in a row | Approach too expensive |
 | Branch stagnating, other thriving | Switch or combine |
 | Best results split across branches | Fork to combine |
+| Dimension always scores neutral (e.g., 5/10) | Dimension unmeasurable — consider metric revision |
 
 </reference>
 

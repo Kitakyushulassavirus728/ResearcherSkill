@@ -20,6 +20,10 @@ You have **complete freedom** in how you navigate the problem space. The strateg
 
 `.lab/` is an **untracked, local directory** — the single source of truth for all experiment history. It survives all git operations because it is in `.gitignore`. Git manages code state. `.lab/` manages experiment knowledge. They are independent.
 
+**Structure:**
+- `.lab/config.md`, `results.tsv`, `log.md`, `branches.md`, `parking-lot.md` — experiment metadata
+- `.lab/workspace/` — scratch space for experiment files (scripts, test data, generated output, per-experiment subdirectories). Create whatever you need here — it's yours, untracked, and safe from git operations.
+
 Always protect `.lab/`. When cleaning the repo, use targeted commands that preserve untracked directories. When resetting, use `git reset` and `git checkout` which leave `.lab/` intact.
 
 ---
@@ -73,9 +77,10 @@ After confirmation:
 5. **Iteration log** — Create `.lab/log.md`
 6. **Parking lot** — Create `.lab/parking-lot.md` for deferred ideas
 7. **Branch registry** — Create `.lab/branches.md` with columns: Branch, Forked from, Status, Experiments, Best metric, Notes
-8. **Git ignore** — Add `.lab/` and `run.log` to `.gitignore`.
-9. **Baseline** — If a run command exists, run with NO changes. Record as experiment #0. Fill in baseline in config.
-10. **Start** — Begin autonomous work immediately. No announcements needed.
+8. **Workspace** — Create `.lab/workspace/` for scratch files (scripts, test data, generated output). Use per-experiment subdirectories (e.g., `.lab/workspace/exp-3/`) when needed.
+9. **Git ignore** — Add `.lab/` and `run.log` to `.gitignore`.
+10. **Baseline** — If a run command exists, run with NO changes. Record as experiment #0. Fill in baseline in config.
+11. **Start** — Begin autonomous work immediately. No announcements needed.
 
 ---
 

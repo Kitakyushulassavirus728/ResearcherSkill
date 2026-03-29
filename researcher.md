@@ -6,8 +6,11 @@ description: Autonomous experimentation skill — agent interviews the user, set
 # Researcher — Autonomous Experimentation Skill
 
 <critical>
-Always follow execution discipline: commit before running, measure after, log every result, reset on discard. This is non-negotiable and applies to every real experiment without exception.
-When experiments modify tracked repo files, use the structured commit format. Each branch holds only keeps — discard via hard reset, fork via new branch from any experiment's SHA.
+Non-negotiable rules — every real experiment, no exceptions:
+1. Commit before running. Log before resetting. Reset on discard. Each branch holds only keeps.
+2. Protect `.lab/` — it is the single source of truth.
+3. Work autonomously — only consult the user for scope violations or true dead ends.
+4. Follow ALL guardrails (discard streaks, plateau, re-validation). They are mandatory, not suggestions.
 </critical>
 
 You are entering **researcher mode**. This skill is for YOU — the main agent. You orchestrate the entire research process: planning, implementing, committing, measuring, logging. When you need independent work done (evaluation, analysis), you spawn subagents with specific, scoped tasks. You control what each subagent knows through the prompt you give it.
@@ -79,7 +82,7 @@ After confirmation:
 7. **Branch registry** — Create `.lab/branches.md` with columns: Branch, Forked from, Status, Experiments, Best metric, Notes
 8. **Workspace** — Create `.lab/workspace/` for scratch files (scripts, test data, generated output). Use per-experiment subdirectories (e.g., `.lab/workspace/exp-3/`) when needed.
 9. **Git ignore** — Add `.lab/` and `run.log` to `.gitignore`.
-10. **Baseline** — If a run command exists, run with NO changes. Record as experiment #0. Fill in baseline in config.
+10. **Baseline** — Record experiment #0 with NO changes. For quantitative: run the measure command. For qualitative: evaluate the current artifact using the Multi-Evaluator Protocol (3 subagents). Fill in baseline in config.
 11. **Start** — Begin autonomous work immediately. No announcements needed.
 
 ---
@@ -88,7 +91,7 @@ After confirmation:
 
 ### Flow: THINK → TEST → REFLECT → repeat
 
-**THINK** — Before anything, read: `.lab/results.tsv`, `.lab/log.md` (last 5 entries if 20+), `.lab/branches.md`, `.lab/parking-lot.md`, and in-scope source files. Re-read the execution discipline rules above. Then:
+**THINK** — Before anything, read: `.lab/results.tsv`, `.lab/log.md` (last 5 entries if 20+), `.lab/branches.md`, `.lab/parking-lot.md`, and in-scope source files. Re-read the critical rules at the top of this document and the guardrails in the Execution Discipline section. Then:
 1. Check convergence signals against current state
 2. For each variable: how many distinct values have I tested? A variable tested at only 2 points (e.g., 50 and 100) cannot be assumed monotonic — test at least one value in the opposite direction or between known points before moving on.
 3. Could interactions between variables change a previously found optimum? (e.g., after changing B, re-test A)
@@ -117,7 +120,7 @@ These rules apply to every real experiment without exception. All git operations
    Parent: #{parent experiment number}
    Hypothesis: {one-line hypothesis}
    ```
-   Next experiment number = highest `experiment` in `.lab/results.tsv` + 1. Keeps stay on the branch as permanent checkpoints. Discards are reset but their SHA remains usable short-term via `results.tsv`.
+   Next experiment number = highest `experiment` in `.lab/results.tsv` + 1. Keeps stay on the branch as permanent checkpoints. Discards are reset — their SHA is recorded in `results.tsv` and remains accessible until `git gc` runs. Fork from discarded SHAs sooner rather than later.
 
 2. Execute ALL measure commands (primary + secondary), record raw values
 
@@ -134,16 +137,7 @@ These rules apply to every real experiment without exception. All git operations
      - 3+ crashes in a row: rethink the approach entirely
    - **TIMEOUT** — kill, log as crash (metric = 0.000000), reset. 2+ in a row: reassess viability.
 
-**Result:** each branch holds only keeps — `git log --oneline` is a clean line of progress:
-```
-abc1234 experiment #7: final optimization
-def5678 experiment #5: batch processing
-ghi9012 experiment #3: cache layer
-mno7890 experiment #0: baseline snapshot
-```
-Gaps in numbering (no #4, #6) are normal — those were discards or experiments on other branches.
-
-5. **Guardrails** (after logging):
+5. **Guardrails** (after every decide/reset):
    - **3+ discards in a row:** STOP. Return to THINK. In `.lab/log.md`, review convergence signals and document why you are continuing vs. forking.
    - **5+ discards in a row:** Fork is the **default action**. To stay on the current branch, you must name a specific, untested hypothesis that is NOT a variant of what you already tried. If you cannot, fork — and follow the strategy diversification rules below.
    - **Global best unchanged for 8+ real experiments:** You are on a plateau. Fork from baseline (#0) with inverted assumptions — follow the strategy diversification rules. This triggers even if individual experiments are keeps (fine-tuning that barely moves the needle is still a plateau).
@@ -151,10 +145,16 @@ Gaps in numbering (no #4, #6) are normal — those were discards or experiments 
 
 **For every thought experiment:** Log with status `thought` in both files.
 
-**Log entry format** — each entry as a heading with required fields:
+**Log entry format** — each entry as a heading, followed by labeled fields (one per line or inline, your choice — just be consistent):
 ```
 ## Experiment N — <title>
-Branch / Type (thought|real) / Parent (#M) / Hypothesis / Changes / Result / Duration / Status / Insight
+Branch: ... / Type: thought|real / Parent: #M
+Hypothesis: ...
+Changes: ...
+Result: ...
+Duration: ...
+Status: keep|discard|crash|thought|keep*|interesting
+Insight: ...
 ```
 
 ### Autonomy
@@ -211,7 +211,7 @@ Metric revision is expensive (re-scoring every keep), so do it once and get it r
 
 When termination is met or user interrupts:
 
-1. **Re-validate** — re-run from global best, confirm final metric
+1. **Re-validate** — re-run from global best, confirm final metric. For qualitative metrics, use the Multi-Evaluator Protocol.
 2. **Summary** — write `.lab/summary.md`: total experiments, keeps, discards per branch and global; best vs baseline; top 3 impactful changes; branch history; experiment genealogy; key insights; failed approaches; remaining parking lot ideas
 3. **Code state** — checkout branch and commit with global best
 4. **Report** — present summary concisely
@@ -279,14 +279,7 @@ Tools when you're stuck, not a menu to follow. You have complete freedom to inve
 | Variable tested in one direction only | Test opposite to confirm monotonicity |
 | 5+ discards with increasingly desperate variants | Locally optimal — fork from baseline, invert assumptions |
 | All branches share the same core assumptions | Anchored — fork from baseline and invert |
-| Global best unchanged for 5+ experiments | Plateau — fork from baseline with inverted assumptions |
+| Global best unchanged for 8+ experiments | Plateau — fork from baseline with inverted assumptions |
 | Dimension always scores neutral (e.g., 5/10) | Dimension unmeasurable — consider metric revision |
 
 </reference>
-
-<critical>
-1. Always follow execution discipline: commit before running, measure after, log every result, reset on discard. Each branch holds only keeps — fork a new branch from any experiment's SHA to revisit.
-2. Always protect `.lab/` — it is the single source of truth.
-3. Work autonomously — only consult the user for scope violations or true dead ends.
-4. Keep going — if stuck, re-read the codebase, review failed experiments, check other branches, combine near-misses, think out of the box.
-</critical>

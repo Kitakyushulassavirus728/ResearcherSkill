@@ -7,6 +7,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.4.1] - 2026-03-29
+
+### Fixed
+- Convergence signal plateau threshold aligned with guardrail (both 8+, was 5 vs 8)
+- Reduced `<critical>` blocks from 3 to 1 (top) + 1 (execution discipline) to prevent desensitization
+- Guardrails (step 5) placed directly after decide (step 4) — removed git log example that broke the flow
+- THINK phase references critical rules and guardrails correctly (was pointing "above" to a section below)
+- Qualitative baseline now explicitly requires Multi-Evaluator Protocol (3 subagents)
+- Phase 4 re-validation explicitly mentions Multi-Evaluator Protocol for qualitative metrics
+- Log entry format clarified as labeled fields, not ambiguous slash-separated line
+- Orphaned SHA warning: "fork from discarded SHAs sooner rather than later" (git gc risk)
+
 ## [1.4.0] - 2026-03-29
 
 ### Added
@@ -56,7 +68,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `GUIDE.md` — detailed usage guide
 - FAQ
 
-[Unreleased]: https://github.com/krzysztofdudek/ResearcherSkill/compare/v1.4.0...HEAD
+[Unreleased]: https://github.com/krzysztofdudek/ResearcherSkill/compare/v1.4.1...HEAD
+[1.4.1]: https://github.com/krzysztofdudek/ResearcherSkill/compare/v1.4.0...v1.4.1
 [1.4.0]: https://github.com/krzysztofdudek/ResearcherSkill/compare/v1.3.0...v1.4.0
 [1.3.0]: https://github.com/krzysztofdudek/ResearcherSkill/compare/v1.2.0...v1.3.0
 [1.2.0]: https://github.com/krzysztofdudek/ResearcherSkill/compare/v1.1.1...v1.2.0

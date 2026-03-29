@@ -55,7 +55,8 @@ Git manages your code. `.lab/` manages the experiment history. They're independe
 ├── results.tsv        Every experiment, one row each
 ├── log.md             Narrative: what was tried, why, what happened
 ├── branches.md        Branch registry (if the agent forks)
-└── parking-lot.md     Ideas for later
+├── parking-lot.md     Ideas for later
+└── workspace/         Scratch space for experiment files
 ```
 
 Then the agent runs your benchmark with zero changes. This is **experiment #0** — the baseline.
@@ -108,13 +109,17 @@ This matters because 10 minutes of good analysis can prevent 5 wasted experiment
 
 ### Test
 
-The agent makes changes to the code. Before running anything, it commits:
+The agent makes changes to the code. Before running anything, it commits with a structured message:
 
 ```
-git commit -m "experiment: batch order fetches in getUserOrders"
+experiment #1: batch order fetches in getUserOrders
+
+Branch: research/reduce-p99
+Parent: #0
+Hypothesis: N+1 query is the bottleneck, batching should reduce p99
 ```
 
-This commit is the safety net. If the experiment fails, the agent reverts to here.
+This commit is the safety net. If the experiment fails, the agent resets to here. The structured format makes `git log` readable as experiment history.
 
 Then it runs the benchmark. Redirects all output to `run.log` so it doesn't flood its own context window. Waits for the result.
 
@@ -128,7 +133,7 @@ Then it runs the benchmark. Redirects all output to `run.log` so it doesn't floo
 |---------|--------|
 | Metric improved | **Keep.** Advance the branch. |
 | Metric equal but code is simpler | **Keep.** Simplification win. |
-| Metric equal or worse | **Discard.** `git reset --hard HEAD~1` |
+| Metric equal or worse | **Discard.** `git reset --hard HEAD~1` (SHA preserved in results.tsv) |
 | Metric didn't improve but result is informative | **Interesting.** Agent decides. |
 
 > p99 = 118ms. That's better than 142ms. **Keep.**
@@ -193,21 +198,31 @@ After a few hours, `results.tsv` might look like this:
 
 This is the part that prevents the agent from grinding the same idea forever.
 
-After every experiment, the agent checks a table of signals:
+After every experiment, the agent checks convergence signals and hard guardrails:
+
+**Hard guardrails (mandatory):**
+
+| Trigger | Action |
+|---------|--------|
+| 3+ discards in a row | STOP. Reflect in log — why continuing vs forking? |
+| 5+ discards in a row | Fork is the default. Check parking lot first. Must justify staying. |
+| Global best unchanged 8+ experiments | Plateau. Fork from baseline with inverted assumptions. |
+| Every 10th experiment | Re-validate: re-run current best, confirm no drift. |
+
+**Soft signals (advisory):**
 
 | Signal | What it means | What to do |
 |--------|--------------|------------|
-| 5+ discards in a row | Current approach is exhausted | Pivot completely |
 | Metric plateau (<0.5% over 5 keeps) | Small tweaks are done | Go radical |
 | Same code area modified 3+ times | Over-optimizing one spot | Look elsewhere |
 | Alternating keep/discard | Conflating variables | Isolate them |
 | 2+ timeouts in a row | Approach too expensive | Scale down |
 | Results contradict theory | Your model is wrong | Rethink from scratch |
 | Branch stagnating, other thriving | Wrong branch | Switch or combine |
+| Change only tested in one direction | Assumption untested | Test the opposite |
+| All branches share same assumptions | Anchored | Fork from baseline and invert |
 
-These aren't hard rules. They're signals. The agent reads them, considers the history, and decides. Sometimes it pivots. Sometimes it ignores a signal because it has a strong hypothesis.
-
-The skill gives it freedom to choose.
+The guardrails are mandatory — the agent must act. The signals are advisory — the agent reads them, considers the history, and decides.
 
 ---
 
@@ -221,9 +236,11 @@ Experiment #5 (p99 = 106ms)
 └── Branch B: try a completely different caching strategy
 ```
 
-It can fork. Create a new branch from any successful experiment, register it in `.lab/branches.md`, and keep exploring. The experiment history tracks which branch each experiment belongs to and which experiment it was forked from.
+It can fork. Create a new branch from any experiment's SHA (keeps via `git log`, discards via SHA in `results.tsv`), register it in `.lab/branches.md`, and keep exploring. Experiment numbers are global across branches.
 
 The agent considers results from **all branches** when thinking. If Branch B finds something great, the agent can combine it with Branch A's wins.
+
+**Strategy diversification:** When forking due to stagnation, the agent writes an assumptions list, chooses a fork point deliberately (baseline for fresh exploration, best keep for refinement, discarded experiment for revisiting a signal), and must invert at least one core assumption as the first experiment on the new branch. This prevents anchoring to the same local optimum.
 
 ---
 
@@ -247,9 +264,9 @@ An agent that just tries everything wastes cycles. An agent that thinks first, t
 The agent stops when one of these happens:
 
 1. Target metric reached (p99 under 50ms)
-2. Experiment count limit hit (40 experiments)
+2. Experiment count limit hit (only if you explicitly set one)
 3. You tell it to stop
-4. **Default: it never stops.** It keeps going until you interrupt.
+4. **Default: it never stops.** It keeps going until you interrupt. If the session ends (context limit), `.lab/` persists — the next session resumes via Phase 0.
 
 When it stops, it writes `.lab/summary.md`:
 
@@ -272,7 +289,8 @@ Your project/
 │   ├── log.md            Reads like a research journal
 │   ├── branches.md       The exploration tree
 │   ├── parking-lot.md    Ideas for next time
-│   └── summary.md        The highlights
+│   ├── summary.md        The highlights
+│   └── workspace/        Scratch files from experiments
 └── .gitignore            .lab/ stays local
 ```
 
@@ -292,7 +310,7 @@ Anything where you can say "run this" and "check this number."
 | Parser accuracy | `./run-tests.sh` | `grep "pass rate"` |
 | Document comparison | custom script | custom score |
 
-It also works **without a run command**. If your metric is qualitative ("does this code read better?"), the agent scores against a rubric you define together. Subjective, but consistent rubric + consistent scale = usable signal.
+It also works **without a run command**. If your metric is qualitative ("does this code read better?"), the agent scores against a rubric you define together using the multi-evaluator protocol — 3 independent subagent evaluators per experiment, each receiving only the artifact and rubric (no hypothesis or context). Median aggregation resists outliers. Divergence between evaluators flags rubric problems.
 
 ---
 

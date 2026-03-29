@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.4.2] - 2026-03-29
+
+### Fixed
+- THINK checklist generalized — works for prompt optimization, code refactoring, not just parameter tuning
+- Parking lot trigger added to 5+ discard guardrail — check for untested ideas before forking
+- Phase 4 wrap-up clarified — explicit branch checkout, SHA handling for closed branches, commit message format
+
 ## [1.4.1] - 2026-03-29
 
 ### Fixed
@@ -68,7 +75,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `GUIDE.md` — detailed usage guide
 - FAQ
 
-[Unreleased]: https://github.com/krzysztofdudek/ResearcherSkill/compare/v1.4.1...HEAD
+[Unreleased]: https://github.com/krzysztofdudek/ResearcherSkill/compare/v1.4.2...HEAD
+[1.4.2]: https://github.com/krzysztofdudek/ResearcherSkill/compare/v1.4.1...v1.4.2
 [1.4.1]: https://github.com/krzysztofdudek/ResearcherSkill/compare/v1.4.0...v1.4.1
 [1.4.0]: https://github.com/krzysztofdudek/ResearcherSkill/compare/v1.3.0...v1.4.0
 [1.3.0]: https://github.com/krzysztofdudek/ResearcherSkill/compare/v1.2.0...v1.3.0

@@ -93,8 +93,8 @@ After confirmation:
 
 **THINK** — Before anything, read: `.lab/results.tsv`, `.lab/log.md` (last 5 entries if 20+), `.lab/branches.md`, `.lab/parking-lot.md`, and in-scope source files. Re-read the critical rules at the top of this document and the guardrails in the Execution Discipline section. Then:
 1. Check convergence signals against current state
-2. For each variable: how many distinct values have I tested? A variable tested at only 2 points (e.g., 50 and 100) cannot be assumed monotonic — test at least one value in the opposite direction or between known points before moving on.
-3. Could interactions between variables change a previously found optimum? (e.g., after changing B, re-test A)
+2. What assumptions am I making that I haven't tested? For parameter tuning: have I tested each variable in multiple directions? For other domains: have I tried the opposite of what's working?
+3. Could earlier findings be invalidated by recent changes? (e.g., after changing B, re-test assumptions made when only A was changed)
 4. Analyze, hypothesize, formalize your understanding. Stay as long as productive.
 
 **TEST** — Implement, run, measure. Verify hypotheses. Follow execution discipline (below). Stay as long as you're generating new data.
@@ -139,7 +139,7 @@ These rules apply to every real experiment without exception. All git operations
 
 5. **Guardrails** (after every decide/reset):
    - **3+ discards in a row:** STOP. Return to THINK. In `.lab/log.md`, review convergence signals and document why you are continuing vs. forking.
-   - **5+ discards in a row:** Fork is the **default action**. To stay on the current branch, you must name a specific, untested hypothesis that is NOT a variant of what you already tried. If you cannot, fork — and follow the strategy diversification rules below.
+   - **5+ discards in a row:** Fork is the **default action**. Before forking, check `.lab/parking-lot.md` — if there are untested ideas there, try one first. Otherwise, to stay on the current branch, you must name a specific, untested hypothesis that is NOT a variant of what you already tried. If you cannot, fork — and follow the strategy diversification rules below.
    - **Global best unchanged for 8+ real experiments:** You are on a plateau. Fork from baseline (#0) with inverted assumptions — follow the strategy diversification rules. This triggers even if individual experiments are keeps (fine-tuning that barely moves the needle is still a plateau).
    - <critical>**Every 10th real experiment** (experiment #10, #20, #30...): before running the next experiment, re-run current HEAD and compare to recorded best. Log the re-validation result in `.lab/log.md` as `## Re-Validation after Experiment N`. If regressed >2%, log drift and consider forking from the best experiment. This is mandatory — do not skip.</critical>
 
@@ -213,7 +213,7 @@ When termination is met or user interrupts:
 
 1. **Re-validate** — re-run from global best, confirm final metric. For qualitative metrics, use the Multi-Evaluator Protocol.
 2. **Summary** — write `.lab/summary.md`: total experiments, keeps, discards per branch and global; best vs baseline; top 3 impactful changes; branch history; experiment genealogy; key insights; failed approaches; remaining parking lot ideas
-3. **Code state** — checkout branch and commit with global best
+3. **Code state** — checkout the branch containing the global best experiment. If it's on a closed branch, create a new branch from that experiment's SHA. Commit with message `research complete: {short description of best result}`.
 4. **Report** — present summary concisely
 
 ---

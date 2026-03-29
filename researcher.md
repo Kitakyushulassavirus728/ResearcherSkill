@@ -61,9 +61,9 @@ Before any experiment, understand the problem. Ask these questions conversationa
 4. **Constraints** — What is off-limits?
 5. **Run command** — How do we execute one experiment? Single command or chain (entire chain must succeed). May be omitted for qualitative-only research.
 6. **Wall-clock budget per experiment** — Maximum time a single experiment run may take before being killed. Default: **5 minutes**.
-7. **Termination** — When do we stop? Default: **infinite** (run until user interrupts)
+7. **Termination** — When do we stop? Default: **infinite** (run until user interrupts or target is reached). Do not self-impose experiment limits. If the session ends (context limit, interruption), `.lab/` persists — the next session resumes via Phase 0.
    - *Target value*: stop when primary metric reaches X
-   - *Experiment count*: stop after N experiments
+   - *Experiment count*: stop after N experiments (only if the user explicitly requests it)
 
 Once you have answers, **repeat the configuration back** and get explicit confirmation before proceeding.
 
@@ -93,7 +93,7 @@ After confirmation:
 
 **THINK** — Before anything, read: `.lab/results.tsv`, `.lab/log.md` (last 5 entries if 20+), `.lab/branches.md`, `.lab/parking-lot.md`, and in-scope source files. Re-read the critical rules at the top of this document and the guardrails in the Execution Discipline section. Then:
 1. Check convergence signals against current state
-2. What assumptions am I making that I haven't tested? For parameter tuning: have I tested each variable in multiple directions? For other domains: have I tried the opposite of what's working?
+2. What assumptions am I making that I haven't tested? Have I tried the opposite of what's currently working? (e.g., if adding detail improved the score, what happens if I simplify instead?)
 3. Could earlier findings be invalidated by recent changes? (e.g., after changing B, re-test assumptions made when only A was changed)
 4. Analyze, hypothesize, formalize your understanding. Stay as long as productive.
 
@@ -185,12 +185,12 @@ Always consider results from ALL branches when thinking. Mark exhausted branches
 
 When forking due to stagnation, you are probably stuck in a local optimum. Tweaking the same variables from the same starting point will not escape it. Before creating the fork:
 
-1. **Write an assumptions list** in `.lab/log.md`: what does the current best strategy assume? (e.g., "alpha should be high", "beta should be low", "gamma dominates the score"). These are your current priors.
+1. **Write an assumptions list** in `.lab/log.md`: what does the current best strategy assume? (e.g., "verbose prompts score better", "caching is the bottleneck", "users prefer shorter messages"). These are your current priors.
 2. **Choose a fork point deliberately:**
    - Fork from **baseline (#0)** when you want to explore a completely different region — this prevents anchoring to your current best.
    - Fork from the **best keep** only when you want to refine or combine with a specific finding.
    - Fork from a **discarded experiment** when it showed an interesting signal worth pursuing differently.
-3. <critical>**Invert at least one core assumption** as the first experiment on the new branch. This is mandatory, not optional. If the current strategy has alpha=high, beta=low — the new branch's first experiment MUST try alpha=low or beta=high (or both). Not alpha=slightly-less-high. Not the same values with a minor tweak. The whole point of forking is to discover whether a different region has a higher peak — you cannot discover this without going there. Invert means explore the opposite region, not the opposite extreme — if current best is alpha=100, try alpha=20-30, not necessarily alpha=0.</critical>
+3. <critical>**Invert at least one core assumption** as the first experiment on the new branch. This is mandatory, not optional. If the current strategy assumes "more detail is better" — try minimal. If it assumes "aggressive caching" — try no caching. Not a minor tweak of the same approach. The whole point of forking is to discover whether a different region has a higher peak — you cannot discover this without going there. Invert means explore the opposite region, not the opposite extreme.</critical>
 4. **Name the branch after the strategy**, not the parameter (e.g., `research/low-alpha-approach` not `research/tweak-delta`).
 
 ### Metric Revision
@@ -276,7 +276,7 @@ Tools when you're stuck, not a menu to follow. You have complete freedom to inve
 | 2+ timeouts in a row | Approach too expensive |
 | Branch stagnating, other thriving | Switch or combine |
 | Best results split across branches | Fork to combine |
-| Variable tested in one direction only | Test opposite to confirm monotonicity |
+| Change only tested in one direction | Test the opposite to confirm the assumption holds |
 | 5+ discards with increasingly desperate variants | Locally optimal — fork from baseline, invert assumptions |
 | All branches share the same core assumptions | Anchored — fork from baseline and invert |
 | Global best unchanged for 8+ experiments | Plateau — fork from baseline with inverted assumptions |

@@ -7,6 +7,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.4.0] - 2026-03-29
+
+### Added
+- **Execution guardrails** in Phase 3: 3+ discard review, 5+ discard mandatory fork, plateau detection (8+ experiments without global best improvement), mandatory re-validation every 10th experiment (`<critical>`)
+- **Strategy Diversification** section — when forking due to stagnation: assumptions list, deliberate fork point selection (baseline/best/discard), mandatory assumption inversion (`<critical>`) on first experiment of new branch
+- **THINK phase** structured checklist: convergence signal check, monotonicity verification (3+ data points per variable), interaction awareness
+- **Multi-Evaluator Protocol** for qualitative metrics — main agent spawns 3 independent subagent evaluators per experiment, each receives only artifact + rubric, median aggregation, divergence flagging
+- **Orchestration model** — skill is for the main agent; subagents receive scoped tasks via prompt, not the skill file
+- **Autonomous git operations** — commits, resets, branch creation are systemic, no user permission needed
+- New convergence signals: variable tested in one direction only, plateau detection, anchoring across branches, locally optimal with desperate variants
+- Re-Validation moved from standalone section into guardrails (integrated into execution flow)
+
 ## [1.3.0] - 2026-03-28
 
 ### Added
@@ -44,7 +56,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `GUIDE.md` — detailed usage guide
 - FAQ
 
-[Unreleased]: https://github.com/krzysztofdudek/ResearcherSkill/compare/v1.3.0...HEAD
+[Unreleased]: https://github.com/krzysztofdudek/ResearcherSkill/compare/v1.4.0...HEAD
+[1.4.0]: https://github.com/krzysztofdudek/ResearcherSkill/compare/v1.3.0...v1.4.0
 [1.3.0]: https://github.com/krzysztofdudek/ResearcherSkill/compare/v1.2.0...v1.3.0
 [1.2.0]: https://github.com/krzysztofdudek/ResearcherSkill/compare/v1.1.1...v1.2.0
 [1.1.1]: https://github.com/krzysztofdudek/ResearcherSkill/compare/v1.1.0...v1.1.1

@@ -1,10 +1,16 @@
 # ResearcherSkill
 
-This repository is the source for the `researcher` skill installed at `~/.claude/skills/researcher/SKILL.md`.
+## Purpose
+
+This repository exists solely so the author can develop and version `researcher.md`. That file is the complete, standalone researcher skill — people copy it into their own setups. Nothing in this repo (CLAUDE.md, CHANGELOG.md, README.md, CI, etc.) may affect the skill's mechanics. All behavior must be self-contained in `researcher.md`.
 
 ## Sync rule
 
 `researcher.md` and `~/.claude/skills/researcher/SKILL.md` are clones. Any change to one MUST be applied to the other in the same operation. Never leave them out of sync.
+
+## Git workflow
+
+Always work on a feature branch. Never commit directly to main.
 
 ## Versioning
 

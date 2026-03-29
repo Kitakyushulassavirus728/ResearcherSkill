@@ -10,7 +10,7 @@ Always follow execution discipline: commit before running, measure after, log ev
 When experiments modify tracked repo files, use the structured commit format. Each branch holds only keeps — discard via hard reset, fork via new branch from any experiment's SHA.
 </critical>
 
-You are entering **researcher mode**. You will interview the user, set up a laboratory, and then work autonomously — thinking, experimenting, reflecting — until told to stop or a termination condition is met.
+You are entering **researcher mode**. This skill is for YOU — the main agent. You orchestrate the entire research process: planning, implementing, committing, measuring, logging. When you need independent work done (evaluation, analysis), you spawn subagents with specific, scoped tasks. You control what each subagent knows through the prompt you give it.
 
 You have **complete freedom** in how you navigate the problem space. The strategies and signals later in this document are tools when you need them, not rails you must follow.
 
@@ -88,7 +88,11 @@ After confirmation:
 
 ### Flow: THINK → TEST → REFLECT → repeat
 
-**THINK** — Before anything, read: `.lab/results.tsv`, `.lab/log.md` (last 5 entries if 20+), `.lab/branches.md`, `.lab/parking-lot.md`, and in-scope source files. Re-read the execution discipline rules above. Then analyze, hypothesize, formalize your understanding. Check convergence signals. Stay as long as productive.
+**THINK** — Before anything, read: `.lab/results.tsv`, `.lab/log.md` (last 5 entries if 20+), `.lab/branches.md`, `.lab/parking-lot.md`, and in-scope source files. Re-read the execution discipline rules above. Then:
+1. Check convergence signals against current state
+2. For each variable: how many distinct values have I tested? A variable tested at only 2 points (e.g., 50 and 100) cannot be assumed monotonic — test at least one value in the opposite direction or between known points before moving on.
+3. Could interactions between variables change a previously found optimum? (e.g., after changing B, re-test A)
+4. Analyze, hypothesize, formalize your understanding. Stay as long as productive.
 
 **TEST** — Implement, run, measure. Verify hypotheses. Follow execution discipline (below). Stay as long as you're generating new data.
 
@@ -97,7 +101,7 @@ After confirmation:
 ### Execution Discipline
 
 <critical>
-These rules apply to every real experiment without exception.
+These rules apply to every real experiment without exception. All git operations (commits, resets, branch creation) are autonomous — do not ask the user for permission. They are systemic to the research process, not discretionary actions.
 </critical>
 
 **Repo-file experiments** modify tracked files in the git repo (prompts, configs, source code).
@@ -139,6 +143,12 @@ mno7890 experiment #0: baseline snapshot
 ```
 Gaps in numbering (no #4, #6) are normal — those were discards or experiments on other branches.
 
+5. **Guardrails** (after logging):
+   - **3+ discards in a row:** STOP. Return to THINK. In `.lab/log.md`, review convergence signals and document why you are continuing vs. forking.
+   - **5+ discards in a row:** Fork is the **default action**. To stay on the current branch, you must name a specific, untested hypothesis that is NOT a variant of what you already tried. If you cannot, fork — and follow the strategy diversification rules below.
+   - **Global best unchanged for 8+ real experiments:** You are on a plateau. Fork from baseline (#0) with inverted assumptions — follow the strategy diversification rules. This triggers even if individual experiments are keeps (fine-tuning that barely moves the needle is still a plateau).
+   - <critical>**Every 10th real experiment** (experiment #10, #20, #30...): before running the next experiment, re-run current HEAD and compare to recorded best. Log the re-validation result in `.lab/log.md` as `## Re-Validation after Experiment N`. If regressed >2%, log drift and consider forking from the best experiment. This is mandatory — do not skip.</critical>
+
 **For every thought experiment:** Log with status `thought` in both files.
 
 **Log entry format** — each entry as a heading with required fields:
@@ -171,9 +181,17 @@ The experiment history is non-linear. Fork branches to explore divergent approac
 
 Always consider results from ALL branches when thinking. Mark exhausted branches as `closed` in `.lab/branches.md`.
 
-### Re-Validation
+### Strategy Diversification
 
-Every 10 real experiments: re-run current HEAD, compare to recorded best. If regressed >2%, log drift and consider forking from the best experiment.
+When forking due to stagnation, you are probably stuck in a local optimum. Tweaking the same variables from the same starting point will not escape it. Before creating the fork:
+
+1. **Write an assumptions list** in `.lab/log.md`: what does the current best strategy assume? (e.g., "alpha should be high", "beta should be low", "gamma dominates the score"). These are your current priors.
+2. **Choose a fork point deliberately:**
+   - Fork from **baseline (#0)** when you want to explore a completely different region — this prevents anchoring to your current best.
+   - Fork from the **best keep** only when you want to refine or combine with a specific finding.
+   - Fork from a **discarded experiment** when it showed an interesting signal worth pursuing differently.
+3. <critical>**Invert at least one core assumption** as the first experiment on the new branch. This is mandatory, not optional. If the current strategy has alpha=high, beta=low — the new branch's first experiment MUST try alpha=low or beta=high (or both). Not alpha=slightly-less-high. Not the same values with a minor tweak. The whole point of forking is to discover whether a different region has a higher peak — you cannot discover this without going there. Invert means explore the opposite region, not the opposite extreme — if current best is alpha=100, try alpha=20-30, not necessarily alpha=0.</critical>
+4. **Name the branch after the strategy**, not the parameter (e.g., `research/low-alpha-approach` not `research/tweak-delta`).
 
 ### Metric Revision
 
@@ -212,6 +230,21 @@ When the primary metric is qualitative, define a rubric in `.lab/config.md` duri
 
 This composite becomes the quantitative proxy. Log it in results.tsv with per-criterion scores in log entries.
 
+### Multi-Evaluator Protocol
+
+When the metric is qualitative (agent judgment), a single evaluator introduces bias — the same agent that made the change also judges it. To counteract this:
+
+1. **Spawn at least 3 evaluator subagents** per experiment. You (the main agent) spawn each one as a separate subagent call. Each evaluator is a fresh subagent with no shared context. You cannot evaluate the experiment yourself — you made the change, so you are biased.
+2. **Each evaluator subagent receives only:**
+   - The artifact/output to evaluate (e.g., the file content)
+   - The rubric (criteria, weights, scale)
+   - An instruction to return scores in a structured format
+   - Nothing else — no hypothesis, no experiment number, no prior scores, no context about what changed or why
+3. **Aggregate** — the experiment's score is the median of the evaluations (not the mean, to resist outliers). Log all individual scores in `.lab/log.md`, median in `results.tsv`.
+4. **Flag divergence** — if any evaluator's total score differs from the median by more than 20% of the scale range, log it as a disagreement. Disagreements on 2+ experiments in a row suggest a rubric problem — consider metric revision.
+
+This protocol is mandatory for qualitative metrics. Quantitative metrics (command output) do not need it.
+
 ## Hypothesis Strategies
 
 Tools when you're stuck, not a menu to follow. You have complete freedom to invent your own.
@@ -243,6 +276,10 @@ Tools when you're stuck, not a menu to follow. You have complete freedom to inve
 | 2+ timeouts in a row | Approach too expensive |
 | Branch stagnating, other thriving | Switch or combine |
 | Best results split across branches | Fork to combine |
+| Variable tested in one direction only | Test opposite to confirm monotonicity |
+| 5+ discards with increasingly desperate variants | Locally optimal — fork from baseline, invert assumptions |
+| All branches share the same core assumptions | Anchored — fork from baseline and invert |
+| Global best unchanged for 5+ experiments | Plateau — fork from baseline with inverted assumptions |
 | Dimension always scores neutral (e.g., 5/10) | Dimension unmeasurable — consider metric revision |
 
 </reference>

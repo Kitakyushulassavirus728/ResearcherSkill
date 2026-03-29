@@ -1,0 +1,20 @@
+experiment	branch	parent	commit	metric	secondary_metrics	status	duration_s	description
+0	research/improve-researcher-skill	0	baseline	6.250000	lines=345;words=2644	keep	0	Baseline evaluation
+1	research/improve-researcher-skill	0	b14c926	7.600000	lines=245;words=1677	keep	0	Comprehensive rewrite with LLM compliance research
+2	research/improve-researcher-skill	1	ca7bbbb	8.000000	lines=227;words=1622	keep	0	Trim config template, reorder references, add drift re-injection
+3	research/improve-researcher-skill	2	14af9a9	8.350000	lines=213;words=1589	keep	0	Resume branch checkout, log format compression, filler removal
+4	research/improve-researcher-skill	3	897ed7b	8.580000	lines=219;words=1610	keep	0	Restore compact log example, broaden closing critical block
+5	research/improve-researcher-skill	4	0660874	8.650000	lines=219;words=1615	keep	0	Positive framing for .lab protection
+6	research/improve-researcher-skill	5	2e4bc18	8.650000	lines=219;words=1615	keep	0	Update README to reflect researcher.md changes
+7	research/improve-researcher-skill	5	d09b49e	8.750000	lines=220;words=1643	keep	0	Add persistence rule, clarify crash section
+8	research/improve-researcher-skill	7	n/a	0.000000	lines=0;words=0	discard	0	Multi-lab support — user cancelled, reverted
+9	research/improve-researcher-skill	7	cbe7c03	8.880000	lines=218;words=1617	keep	0	Remove redundant transition line, compress Q5
+10	research/improve-researcher-skill	9	1c2f91f	8.880000	lines=218;words=1617	keep	0	Add persistence feature to README
+11	research/improve-researcher-skill	9	n/a	8.880000	lines=218;words=1617	thought	0	Considered rephrasing opening critical — decided current is optimal
+12	research/improve-researcher-skill	9	20b76fe	8.880000	lines=210;words=1592	keep	0	Merge Crash & Timeout into Execution Discipline (equal metric, simpler structure)
+13	research/improve-researcher-skill	12	64af4dd	8.880000	lines=206;words=1589	keep	0	Merge flow diagram into section header (equal, simpler)
+14	research/improve-researcher-skill	13	1c478b5	9.030000	lines=210;words=1589	keep	0	Wrap reference sections in <reference> XML tags — broke plateau!
+15	research/improve-researcher-skill	14	aecb060	9.030000	lines=210;words=1589	keep	0	Update README for <reference> tags
+16	research/improve-researcher-skill	14	e572687	9.150000	lines=213;words=1590	keep	0	Expand CRASH into sub-bullets for clarity
+17	research/improve-researcher-skill	16	bb5b04d	9.230000	lines=211;words=1590	keep	0	Move Phase 4 before reference section — fix phase sequence
+18	research/improve-researcher-skill	17	n/a	9.230000	lines=211;words=1590	thought	0	Final review of unapplied research findings — all high-leverage changes applied

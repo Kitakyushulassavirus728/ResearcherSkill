@@ -32,16 +32,10 @@ jobs:
           fi
 
       - name: Extract changelog section for this version
-        id: changelog
         if: steps.check.outputs.exists == 'false'
         run: |
           VERSION="${{ steps.version.outputs.version }}"
-          NOTES=$(awk "/^## \[${VERSION}\]/{flag=1; next} /^## \[/{if(flag) exit} flag" CHANGELOG.md | sed '/^[[:space:]]*$/d')
-          {
-            echo "notes<<EOF"
-            echo "$NOTES"
-            echo "EOF"
-          } >> "$GITHUB_OUTPUT"
+          awk "/^## \[${VERSION}\]/{flag=1; next} /^## \[/{if(flag) exit} flag" CHANGELOG.md | sed '/^[[:space:]]*$/d' > /tmp/release-notes.md
 
       - name: Tag and create GitHub Release
         if: steps.check.outputs.exists == 'false'
@@ -52,5 +46,5 @@ jobs:
           git push origin "v${{ steps.version.outputs.version }}"
           gh release create "v${{ steps.version.outputs.version }}" \
             --title "v${{ steps.version.outputs.version }}" \
-            --notes "${{ steps.changelog.outputs.notes }}" \
+            --notes-file /tmp/release-notes.md \
             --latest

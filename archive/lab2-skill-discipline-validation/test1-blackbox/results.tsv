@@ -1,0 +1,22 @@
+experiment	branch	parent	commit	metric	secondary_metrics	status	duration_s	description
+0	research/blackbox-optimization	-	7d4536e	67.133117	-	keep	1	Baseline: A=50, B=50, C=50, D=50, E=50
+1	research/blackbox-optimization	#0	1d94639	75.919913	-	keep	1	A=100, B=100, C=50, D=50, E=50
+2	research/blackbox-optimization	#1	6d7520e	80.681818	-	keep	1	A=100, B=100, C=42, D=50, E=50
+3	research/blackbox-optimization	#2	3436ff2	83.181818	-	keep	1	A=100, B=100, C=42, D=0, E=50
+4	research/blackbox-optimization	#3	27da435	85.0	-	keep	1	A=100, B=100, C=42, D=0, E=55
+5	research/blackbox-optimization	#4	3783bdc	83.181818	-	discard	1	A=100, B=100, C=42, D=0, E=60
+6	research/blackbox-optimization	#4	a4e882a	83.809524	-	discard	1	A=100, B=100, C=40, D=0, E=55
+7	research/blackbox-optimization	#4	ede2d49	86.5	-	keep	1	A=100, B=100, C=42, D=10, E=55
+8	research/blackbox-optimization	#7	7eda9f9	88.0	-	keep	1	A=100, B=100, C=42, D=20, E=55
+9	research/blackbox-optimization	#8	6b756dc	89.35	-	keep	1	A=100, B=100, C=42, D=29, E=55
+10	research/blackbox-optimization	#9	2464f09	79.5	-	discard	1	A=100, B=100, C=42, D=30, E=55
+11	research/blackbox-optimization	#9	c37d85d	85.713636	-	discard	1	A=100, B=100, C=42, D=29, E=45
+12	research/blackbox-optimization	#9	5265d1a	86.182816	-	discard	1	A=100, B=80, C=42, D=29, E=55
+13	research/blackbox-optimization	#9	78756e0	88.754762	-	discard	1	A=100, B=100, C=43, D=29, E=55
+14	research/blackbox-optimization	#9	f565f83	88.622727	-	discard	1	A=100, B=100, C=42, D=29, E=53
+15	research/blackbox-optimization	#9	3ea00a8	88.75	-	discard	1	A=100, B=100, C=42, D=25, E=55
+16	research/blackbox-optimization	#9	20894f9	89.485	-	keep	1	A=100, B=100, C=42, D=29.9, E=55
+17	research/blackbox-optimization	#16	a162637	89.4985	-	keep	1	A=100, B=100, C=42, D=29.99, E=55
+18	research/blackbox-optimization	#17	7a87a89	89.49985	-	keep	1	A=100, B=100, C=42, D=29.999, E=55
+19	research/blackbox-optimization	#18	0b30ca2	89.349473	-	discard	1	A=99, B=100, C=42, D=29.999, E=55
+20	research/blackbox-optimization	#18	0f241eb	89.499985	-	keep	1	A=100, B=100, C=42, D=29.9999, E=55

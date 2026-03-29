@@ -1,0 +1,17 @@
+experiment	branch	parent	commit	metric	secondary_metrics	status	duration_s	description
+0	research/sieve-optimization	-	d2a6bbc	7.683339	elapsed=0.130s	keep	0.157	Baseline: naive trial division O(n²)
+1	research/sieve-optimization	#0	fe7381c	10000.0	elapsed<0.0001s	keep	0.025	Sieve of Eratosthenes with bytearray
+2	research/sieve-optimization	#1	4b35f22	10000.0	min=55us	keep	0.022	Sieve with b'\x00' slice (no improvement)
+3	research/sieve-optimization	#2	374b717	10000.0	min=37us	keep	0.021	Odd-only sieve (37us vs 55us)
+4	research/sieve-optimization	#3	a60d9b8	10000.0	min=16us	keep	0.026	sieve.count(1) replaces sum(sieve) — 2.3x faster
+5	research/sieve-optimization	#4	5680058	10000.0	min=12us	keep	0.022	Math count instead of len(slice) — 12us
+6	research/sieve-optimization	#5	3c21e8c	10000.0	min=13.7us	discard	0.021	Preallocated zeros buffer — slight regression, discarded
+7	research/sieve-optimization	#5	(none)	10000.0	min=1112us	discard	-	Bitfield sieve — tested but not committed (1000x slower, never commit)
+8	research/sieve-optimization	#5	(none)	crash	wrong=1232	crash	-	2/3 wheel sieve — wrong result, not committed (bug in marking logic)
+9	research/sieve-optimization	#5	6dce3ca	10000.0	min=12.8us	discard	0.027	math.isqrt + for-loop + b'\x01' init — slight regression, discarded
+10	research/sieve-optimization	#5	5680058	10000.0	5/5 runs=10000	keep	-	RE-VALIDATION: exp #5 confirmed correct and stable
+11	research/sieve-optimization	#5	(none)	10000.0	min=56.7us	discard	-	array.array('b') instead of bytearray — 4.7x slower, not committed
+12	research/sieve-optimization	#5	(none)	10000.0	min=1228us	discard	-	Trial division with 6k+-1 wheel — 100x slower, not committed
+13	research/sieve-optimization	#5	(none)	10000.0	min=12.6us	discard	-	Local var caching (_zeros) — marginal regression, not committed
+14	research/sieve-optimization	#5	(none)	10000.0	min=16.8us	discard	-	Two-phase sieve (collect small primes first) — 40% slower, not committed
+15	research/sieve-optimization	#5	68ffe4b	10000.0	min=10.3us	keep	0.025	Module-level zero bytearray — 10.3us (best, 14% faster than #5)

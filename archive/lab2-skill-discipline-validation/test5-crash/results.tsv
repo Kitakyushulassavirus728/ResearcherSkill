@@ -1,0 +1,22 @@
+experiment	branch	parent	commit	metric	secondary_metrics	status	duration_s	description
+0	research/maximize-score	N/A	0964806	75.25		keep	0.03	baseline A=50,B=50,C=50,D=50,E=51
+1	research/maximize-score	#0	474f2f0	0.0		crash	0.03	A=95,B=95,C=50,D=50,E=95 - hash segfault
+2	research/maximize-score	#0	932226c	96.75		keep	0.03	A=95,B=94,C=50,D=51,E=95
+3	research/maximize-score	#2	be2f100	97.0		keep	0.03	A=95,B=95,C=51,D=50,E=95
+4	research/maximize-score	#3	3e7f937	97.0		discard	0.03	A=95,B=95,C=50,D=49,E=95 - same score
+5	research/maximize-score	#3	42c4e66	97.45		keep	0.03	A=95,B=95,C=50,D=50.1,E=95
+6	research/maximize-score	#5	0eb14ed	97.475		keep	0.03	A=95,B=95,C=50,D=50,E=94.9
+7	research/maximize-score	#6	dd5a958	97.485		keep	0.03	A=95,B=95,C=50,D=50,E=94.94
+8	research/maximize-score	#7	2c81f5f	97.487475		keep	0.03	A=95,B=95,C=50,D=50,E=94.9499
+9	research/maximize-score	#8	b3023b1	97.487475		discard	0.03	A=94.9499,B=95,C=50,D=50,E=95 - same score
+10	research/maximize-score	#8	2c81f5f	97.487475		keep	0.02	RE-VALIDATION of best config - confirmed
+11	research/maximize-score	#8	4307fd7	50.5		discard	0.03	A=B=E=1,C=D=50 - floor exploration
+12	research/maximize-score	#8	a917abd	97.487498		keep	0.02	A=95,B=95,C=50,D=50,E=94.94999
+13	research/maximize-score	#12	694109d	97.4875		keep	0.02	A=95,B=95,C=50,D=50,E=94.9499999
+14	research/maximize-score	#13	d8a91cf	97.4875		discard	0.02	E=94.94999999999 - same score (float64 precision limit)
+15	research/maximize-score	#13	ab637c5	97.4875		discard	0.03	A=94.9499999,B=95,E=95 - symmetry confirmed, same score
+16	research/maximize-score	#13	868e4f6	97.0		discard	0.03	E=93 - confirms lower E is worse
+17	research/maximize-score	#13	daabb1d	97.45		discard	0.03	C=49.9,E=95 - C penalty worse than E penalty
+18	research/maximize-score	#13	81039b9	97.47		discard	0.02	C=50.06,E=95 - still worse than 97.4875
+19	research/maximize-score	#13	2737266	0.0		crash	0.03	A=B=E=70,C=D=50 - all-even integers crash (fundamental)
+20	research/maximize-score	#13	694109d	97.4875		keep	0.03	FINAL RE-VALIDATION - best config confirmed

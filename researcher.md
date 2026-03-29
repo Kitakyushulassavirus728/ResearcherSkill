@@ -91,11 +91,13 @@ After confirmation:
 
 ### Flow: THINK → TEST → REFLECT → repeat
 
-**THINK** — Before anything, read: `.lab/results.tsv`, `.lab/log.md` (last 5 entries if 20+), `.lab/branches.md`, `.lab/parking-lot.md`, and in-scope source files. Re-read the critical rules at the top of this document and the guardrails in the Execution Discipline section. Then:
-1. Check convergence signals against current state
-2. What assumptions am I making that I haven't tested? Have I tried the opposite of what's currently working? (e.g., if adding detail improved the score, what happens if I simplify instead?)
-3. Could earlier findings be invalidated by recent changes? (e.g., after changing B, re-test assumptions made when only A was changed)
-4. Analyze, hypothesize, formalize your understanding. Stay as long as productive.
+**THINK** — Before anything, read: `.lab/results.tsv`, `.lab/log.md` (last 5 entries if 20+), `.lab/branches.md`, `.lab/parking-lot.md`, and in-scope source files. Re-read the critical rules at the top of this document and the guardrails in the Execution Discipline section. Then write a `## THINK — before Experiment N` entry in `.lab/log.md` covering:
+1. **Convergence signals:** check against current state
+2. **Untested assumptions:** what am I assuming that I haven't tested? Have I tried the opposite of what's currently working? (e.g., if adding detail improved the score, what happens if I simplify instead?)
+3. **Invalidation risk:** could earlier findings be invalidated by recent changes? (e.g., after changing B, re-test assumptions made when only A was changed)
+4. **Next hypothesis:** what will I test and why
+
+The log entry is mandatory — it is the evidence that you stopped to think. Without it, the THINK phase didn't happen. Stay as long as productive.
 
 **TEST** — Implement, run, measure. Verify hypotheses. Follow execution discipline (below). Stay as long as you're generating new data.
 
@@ -107,8 +109,8 @@ After confirmation:
 These rules apply to every real experiment without exception. All git operations (commits, resets, branch creation) are autonomous — do not ask the user for permission. They are systemic to the research process, not discretionary actions.
 </critical>
 
-**Repo-file experiments** modify tracked files in the git repo (prompts, configs, source code).
-**Lab-only experiments** only touch `.lab/` or untracked files. The commit rules below apply to repo-file experiments. Lab-only experiments just need logging.
+**Repo-file experiments** modify any file in scope (as defined in config). If you change a file that is in scope, it is a repo-file experiment — even if you "just want to test something quickly." No exceptions.
+**Lab-only experiments** only touch `.lab/` or files outside scope. The commit rules below apply to repo-file experiments. Lab-only experiments just need logging.
 
 **For every real experiment (code change + run):**
 
@@ -138,8 +140,8 @@ These rules apply to every real experiment without exception. All git operations
    - **TIMEOUT** — kill, log as crash (metric = 0.000000), reset. 2+ in a row: reassess viability.
 
 5. **Guardrails** (after every decide/reset):
-   - **3+ discards in a row:** STOP. Return to THINK. In `.lab/log.md`, review convergence signals and document why you are continuing vs. forking.
-   - **5+ discards in a row:** Fork is the **default action**. Before forking, check `.lab/parking-lot.md` — if there are untested ideas there, try one first. Otherwise, to stay on the current branch, you must name a specific, untested hypothesis that is NOT a variant of what you already tried. If you cannot, fork — and follow the strategy diversification rules below.
+   - <critical>**3+ discards in a row:** STOP. Write a `## 3-Discard Guardrail — after Experiment N` entry in `.lab/log.md` reviewing convergence signals and documenting why you are continuing vs. forking. This entry is mandatory — without it, you cannot proceed to the next experiment.</critical>
+   - <critical>**5+ discards in a row:** Fork is the **default action**. Write a `## 5-Discard Fork — after Experiment N` entry in `.lab/log.md`. Before forking, check `.lab/parking-lot.md` — if there are untested ideas there, try one first. Otherwise, to stay on the current branch, you must name a specific, untested hypothesis that is NOT a variant of what you already tried. If you cannot, fork — and follow the strategy diversification rules below.</critical>
    - **Global best unchanged for 8+ real experiments:** You are on a plateau. Fork from baseline (#0) with inverted assumptions — follow the strategy diversification rules. This triggers even if individual experiments are keeps (fine-tuning that barely moves the needle is still a plateau).
    - <critical>**Every 10th real experiment** (experiment #10, #20, #30...): before running the next experiment, re-run current HEAD and compare to recorded best. Log the re-validation result in `.lab/log.md` as `## Re-Validation after Experiment N`. If regressed >2%, log drift and consider forking from the best experiment. This is mandatory — do not skip.</critical>
 

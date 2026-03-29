@@ -99,7 +99,14 @@ Now it knows what "before" looks like. The loop begins.
 
 The agent reads the experiment history. What's been tried? What worked? What didn't? Are there patterns?
 
-It checks convergence signals (more on those later). Then it forms a hypothesis:
+It checks convergence signals (more on those later). Then it writes a mandatory `## THINK — before Experiment N` entry in `log.md` covering four things:
+
+1. **Convergence signals** — what do the patterns say?
+2. **Untested assumptions** — what am I taking for granted? Have I tried the opposite?
+3. **Invalidation risk** — could recent changes break earlier conclusions?
+4. **Next hypothesis** — what will I test and why?
+
+This entry is the evidence that the agent stopped to think. Without it, the THINK phase didn't happen — the agent cannot proceed.
 
 > "The N+1 query in `getUserOrders` is probably the bottleneck. If I batch the order fetches, p99 should drop."
 
@@ -204,10 +211,10 @@ After every experiment, the agent checks convergence signals and hard guardrails
 
 | Trigger | Action |
 |---------|--------|
-| 3+ discards in a row | STOP. Reflect in log — why continuing vs forking? |
-| 5+ discards in a row | Fork is the default. Check parking lot first. Must justify staying. |
+| 3+ discards in a row | STOP. Write `## 3-Discard Guardrail` entry in log — why continuing vs forking? Cannot proceed without it. |
+| 5+ discards in a row | Fork is the default. Write `## 5-Discard Fork` entry. Check parking lot first. Must justify staying. |
 | Global best unchanged 8+ experiments | Plateau. Fork from baseline with inverted assumptions. |
-| Every 10th experiment | Re-validate: re-run current best, confirm no drift. |
+| Every 10th experiment | Re-validate: re-run current best, confirm no drift. Log as `## Re-Validation after Experiment N`. |
 
 **Soft signals (advisory):**
 

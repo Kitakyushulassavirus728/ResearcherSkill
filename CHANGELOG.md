@@ -7,6 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.4.4] - 2026-03-29
+
+### Changed
+- THINK phase now requires mandatory `## THINK — before Experiment N` log entry with 4 named subsections (Convergence signals, Untested assumptions, Invalidation risk, Next hypothesis). Without the entry, THINK didn't happen.
+- Repo-file vs lab-only boundary clarified: if you modify any file in scope, it's a repo-file experiment — no "quick test" exception
+- 3-discard and 5-discard guardrails wrapped in `<critical>`, require mandatory log entries (`## 3-Discard Guardrail`, `## 5-Discard Fork`) before proceeding
+
+### Added
+- Discipline validation test framework (`tests/discipline/`): deceptive landscape scorer, automated 18-checkpoint verifier, test runner
+- Lab 2 validation results (`archive/lab2-skill-discipline-validation/`): 5 synthetic tests + retest confirming fixes
+
 ## [1.4.3] - 2026-03-29
 
 ### Fixed
@@ -82,7 +93,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `GUIDE.md` — detailed usage guide
 - FAQ
 
-[Unreleased]: https://github.com/krzysztofdudek/ResearcherSkill/compare/v1.4.3...HEAD
+[Unreleased]: https://github.com/krzysztofdudek/ResearcherSkill/compare/v1.4.4...HEAD
+[1.4.4]: https://github.com/krzysztofdudek/ResearcherSkill/compare/v1.4.3...v1.4.4
 [1.4.3]: https://github.com/krzysztofdudek/ResearcherSkill/compare/v1.4.2...v1.4.3
 [1.4.2]: https://github.com/krzysztofdudek/ResearcherSkill/compare/v1.4.1...v1.4.2
 [1.4.1]: https://github.com/krzysztofdudek/ResearcherSkill/compare/v1.4.0...v1.4.1

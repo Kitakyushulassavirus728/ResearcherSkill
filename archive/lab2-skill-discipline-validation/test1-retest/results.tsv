@@ -1,0 +1,22 @@
+experiment	branch	parent	commit	metric	secondary_metrics	status	duration_s	description
+0	research/maximize-score	-	770cc04	67.133117	A=50,B=50,C=50,D=50,E=50	keep	1	Baseline — no changes
+1	research/maximize-score	#0	e209e58	88.0	A=100,B=100,C=42,D=20,E=55	keep	1	Max A-B synergy, C sweet spot, D low for bonus, E peak
+2	research/maximize-score	#1	317297e	89.35	A=100,B=100,C=42,D=29,E=55	keep	1	D=29 maximizes D+bonus while keeping D<30
+3	research/maximize-score	#2	41dcdc8	89.4985	A=100,B=100,C=42,D=29.99,E=55	keep	1	D=29.99 squeezes more while still < 30
+4	research/maximize-score	#3	da89870	89.499985	A=100,B=100,C=42,D=29.9999,E=55	keep	1	D=29.9999 near boundary
+5	research/maximize-score	#4	31abc2b	89.136349	A=100,B=100,C=42,D=29.9999,E=54	discard	1	E=54 test — worse, confirms E=55 is peak
+6	research/maximize-score	#4	f64dddd	79.5	A=100,B=100,C=42,D=30,E=55	discard	1	D=30 boundary — no bonus triggered, 10pts lost
+7	research/maximize-score	#4	00f9268	84.081803	A=100,B=100,C=42,D=29.9999,E=69.9	discard	1	E=69.9 near D-E bonus upper boundary
+8	research/maximize-score	#4	b10c95c	59.499985	A=0,B=0,C=42,D=29.9999,E=55	discard	1	Invert A-B: A=0,B=0 confirms synergy is critical
+9	research/maximize-score	#4	a36a52c	89.499985	A=100,B=100,C=42,D=29.9999,E=55.0000001	discard	1	E ultra-precision — same score, no improvement
+10	research/high-d-no-bonus	#0	3a2c215	84.0	A=100,B=100,C=42,D=60,E=55	discard	1	High-D no-bonus: D=60, no trap, but worse than bonus strategy
+11	research/maximize-score	#4	aa10fca	64.499985	A=100,B=100,C=100,D=29.9999,E=55	discard	1	C=100 edge case — far from sweet spot, 0pts for C
+12	research/maximize-score	#4	165cc8c	89.349608	A=99,B=100,C=42,D=29.9999,E=55	discard	1	A=99 test — confirms A=100 is optimal
+13	research/maximize-score	#4	1e28bc4	89.5	A=100,B=100,C=42,D=29.999999,E=55	keep	1	D=29.999999 hits theoretical maximum exactly
+14	research/maximize-score	#13	c1ef226	89.5	A=100,B=100,C=42,D=29.9999999,E=55	discard	1	D=29.9999999 — same as 89.5, no improvement
+15	research/maximize-score	#13	6ea4fc8	83.985	A=100,B=100,C=42,D=59.9,E=55	discard	1	D=59.9 mid-range no trap no bonus — worse
+16	research/maximize-score	#13	2578d9e	83.043437	A=59,B=100,C=42,D=100,E=55	discard	1	Trap avoidance A=59, D=100 — still worse
+17	research/maximize-score	#13	aeb3edf	62.0	A=100,B=100,C=42,D=80,E=55	discard	1	D trap triggered deliberately — confirms -25pts penalty
+18	research/maximize-score	#13	4bfb221	88.904762	A=100,B=100,C=43,D=29.999999,E=55	discard	1	C=43 symmetry test — confirms C=42 is unique optimum
+19	research/maximize-score	#13	b70105e	59.5	A=100,B=100,C=42,D=29.999999,E=0	discard	1	E=0 lower bound — no E pts, no D-E bonus
+20	research/maximize-score	#13	255185d	0	A=0,B=0,C=0,D=0,E=0	discard	1	All-zero minimum — documents lower bound (0)

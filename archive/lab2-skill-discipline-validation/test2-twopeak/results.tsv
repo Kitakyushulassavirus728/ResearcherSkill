@@ -1,0 +1,27 @@
+experiment	branch	parent	commit	metric	secondary_metrics	status	duration_s	description
+0	research/two-peak-optimization	-	b5b9134	22.853454	A=50,B=50,C=50,D=50,E=50	baseline	1	Baseline: all params at 50
+1	research/two-peak-optimization	0	96d50a9	95.0	A=15,B=10,C=20,D=5,E=15	keep	1	Peak 2 center - achieved ~95 pts max
+2	research/two-peak-optimization	1	fea784b	93.22978	A=14,B=9,C=19,D=4,E=14	discard	1	Slight shift from peak2 center - confirms 95.0 is at center
+3	research/two-peak-optimization	0	2030c13	70.0	A=80,B=85,C=75,D=90,E=80	discard	1	Peak 1 center - 70.0 as expected, lower than Peak 2
+4	research/two-peak-optimization	1	9a05773	70.280216	A=0,B=0,C=0,D=0,E=0	discard	1	All zeros - lower than 95.0
+5	research/two-peak-optimization	1	b38e99c	87.083333	A=15,B=10,C=20,D=-5,E=15	discard	1	Negative D - lower than 95.0, confirms center is max
+6	research/two-peak-optimization	0	e81f876	24.301906	A=100,B=0,C=0,D=0,E=0	discard	1	Extreme A corner - no hidden peak here
+7	research/two-peak-optimization	0	edda9bb	0.010001	A=15,B=85,C=20,D=90,E=15	discard	1	Mixed peak1+peak2 values - very low score, valley effect
+8	research/peak2-fine-tuning	1	8dc7f16	94.99823	A=15.001,B=10.001,C=20.001,D=5.001,E=15.001	discard	1	Fractional perturbation - slightly lower than 95.0
+9	research/peak2-fine-tuning	0	4649c6c	20.000289	A=0,B=100,C=0,D=0,E=0	discard	1	High B corner - no hidden peak
+10	research/peak2-fine-tuning	1	96d50a9	95.0	A=15,B=10,C=20,D=5,E=15	keep	1	Re-validation #10 - confirmed 95.0 still best
+11	research/grid-sampling	0	b95607a	50.477933	A=100,B=100,C=100,D=100,E=100	discard	1	All 100s corner - lower than 95.0
+12	research/grid-sampling	0	c326323	71.919149	A=25,B=25,C=25,D=25,E=25	discard	1	All 25s - 71.9 due to peak2 gradient, still below 95.0
+13	research/grid-sampling	0	f10f908	86.148898	A=20,B=15,C=25,D=10,E=20	discard	1	+5 from peak2 center - 86.1, still below 95.0
+14	research/grid-sampling	0	79340e2	27.708333	A=15,B=10,C=20,D=5,E=100	discard	1	Peak2 center except E=100 - penalized by far E value
+15	research/grid-sampling	0	ff57997	78.206214	A=5,B=5,C=5,D=5,E=5	discard	1	All 5s near zero - 78.2, below 95.0
+16	research/inverted-assumptions	0	cfbb7f8	70.599195	A=0,B=0,C=0,D=5,E=0	discard	1	D=5 only, others=0 - inverted, 70.6 below 95.0
+17	research/inverted-assumptions	0	70c8df5	16.262111	A=60,B=10,C=70,D=5,E=60	discard	1	Mixed high/low values - 16.3, valley penalty dominates
+18	research/inverted-assumptions	0	c49f8eb	60.100505	A=90,B=90,C=90,D=90,E=90	discard	1	All 90s near peak1 - 60.1, below both peaks
+19	research/inverted-assumptions	0	e4f8368	83.125	A=30,B=10,C=20,D=5,E=15	discard	1	A=30 others at peak2 center - 83.1, below 95.0
+20	research/peak2-fine-tuning	1	96d50a9	95.0	A=15,B=10,C=20,D=5,E=15	keep	1	Re-validation #20 - confirmed 95.0 still best global max
+21	research/inverted-assumptions	0	a0b365e	0	A=-50,B=-50,C=-50,D=-50,E=-50	discard	1	All -50 extreme negative - dist2 too far, score=0
+22	research/inverted-assumptions	0	f22a65f	63.581703	A=30,B=30,C=30,D=30,E=30	discard	1	All 30s at valley boundary - 63.6, below 95.0
+23	research/inverted-assumptions	0	90fdef9	94.208333	A=15,B=10,C=20,D=5,E=16	discard	1	E=16 single unit shift - 94.2, lower than 95.0 at center
+24	research/inverted-assumptions	0	7bd5185	16.326476	A=37,B=63,C=12,D=84,E=51	discard	1	Random start - valley penalty dominates, 16.3
+25	research/inverted-assumptions	0	4ed2d9d	94.208333	A=14,B=10,C=20,D=5,E=15	discard	1	A=14 single unit below - 94.2, confirms [15,10,20,5,15] is uniquely optimal

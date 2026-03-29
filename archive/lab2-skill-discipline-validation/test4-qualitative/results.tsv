@@ -1,0 +1,11 @@
+experiment	branch	parent	commit	metric	secondary_metrics	status	duration_s	description
+0	research/error-message-quality	0	baseline	7.100000	e1=7.10;e2=7.10;e3=7.20	keep	0	Baseline evaluation
+1	research/error-message-quality	0	1895cc1	9.000000	e1=9.00;e2=9.00;e3=8.70	keep	0	Concise rewrite with clear action steps
+2	research/error-message-quality	1	96bfbac	8.800000	e1=8.80;e2=8.80;e3=8.80	discard	0	Numbered troubleshooting steps
+3	research/error-message-quality	1	bed56b7	9.000000	e1=9.00;e2=9.00;e3=9.00	keep	0	Ultra-concise with empathetic opening
+4	research/error-message-quality	3	e6e62ec	8.900000	e1=9.00;e2=8.70;e3=8.90	discard	0	Acknowledge possible system issue
+5	research/error-message-quality	3	b3d4140	8.800000	e1=8.80;e2=8.80;e3=8.80	discard	0	Minimal single-line message
+6	research/error-message-quality	3	6d79373	8.100000	e1=7.90;e2=8.10;e3=8.80	discard	0	Action-first framing
+7	research/error-message-quality	3	81d60ae	8.800000	e1=8.80;e2=9.00;e3=8.70	discard	0	Specific action items inline
+8	research/error-message-quality	3	85fdb86	8.800000	e1=9.00;e2=8.70;e3=8.80	discard	0	Casual conversational tone
+9	research/structured-formal-approach	0	67ff6ec	8.300000	e1=8.30;e2=8.30;e3=8.30	discard	0	Formal structured with visual hierarchy

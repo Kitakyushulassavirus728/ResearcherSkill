@@ -13,26 +13,26 @@ Drop `researcher.md` into Claude Code, Codex, or any agent. It will design exper
 
 ## What it looks like running
 
-> ### Experiment 5 — Parallelize independent test suites
-> **Branch:** research/faster-tests · **Parent:** #3 · **Type:** real
+> ### Experiment b4 — READ/WRITE phase separation
+> **Branch:** research/graph-protocol-optimization · **Parent:** #b1 · **Type:** real
 >
-> **Hypothesis:** Unit and integration suites don't share state. Running them in parallel should cut total time.
-> **Changes:** split test config into two parallel jobs in `test.config.ts`
-> **Result:** 38s (was 94s baseline, 52s best) — **new best**
+> **Hypothesis:** Agents read architectural rules but treat them as optional. Separating the instruction into a READ phase ("load constraints first") and a WRITE phase ("now implement") with a guard ("if you haven't done READ, stop") should improve compliance.
+> **Changes:** restructured agent rules into explicit READ/WRITE phases, added structural guard
+> **Result:** 7.04/10 (was 1.82 baseline, 5.91 best) — **new best**
 > **Status:** keep
 >
-> **Insight:** Most of the remaining time is in integration tests. Unit tests finish in 6s. Focus on integration from here.
+> **Insight:** Every attempt to add verification checklists regressed. What worked was changing the structure, not adding steps. Agents respond to framing, not policing.
 
-| # | branch | metric | status | description |
-|---|--------|--------|--------|-------------|
-| 0 | research/faster-tests | 94s | keep | Baseline |
-| 1 | research/faster-tests | 71s | keep | Remove redundant setup/teardown |
-| 2 | research/faster-tests | 74s | discard | Shared test fixtures |
-| 3 | research/faster-tests | 52s | keep | Mock external HTTP calls |
-| 4 | research/faster-tests | - | thought | DB reset is slow but tests need clean state, skip for now |
-| 5 | research/faster-tests | **38s** | **keep** | Parallelize independent test suites |
+- b0: baseline (no special instructions): 1.82/10. keep.
+- b1: reframe rules as "constraints, not suggestions": 5.91. keep.
+- b2: exhaustive checklist: regression. discard.
+- b3: lightweight checkpoint: regression. discard.
+- b4: READ/WRITE separation + structural guard: **7.04**. **keep.**
+- b5: contractual "implement or document exception": regression. discard.
+- b6: JIT re-reading: 5.23, evaluator disagreement. interesting.
+- b7: mandatory pattern-triggered re-reading: 1.4. **regression below baseline.** discard.
 
-*Example is simulated. The skill works on any codebase — run it and share your real results.*
+*Real experiment from optimizing [Yggdrasil](https://github.com/krzysztofdudek/Yggdrasil) agent rules. The skill works on any codebase.*
 
 **Same loop, different problems:**
 - `npm run build` takes 40s → agent gets it to 18s

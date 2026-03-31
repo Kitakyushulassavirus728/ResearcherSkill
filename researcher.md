@@ -83,7 +83,7 @@ After confirmation:
 6. **Parking lot** — Create `.lab/parking-lot.md` for deferred ideas
 7. **Branch registry** — Create `.lab/branches.md` with columns: Branch, Forked from, Status, Experiments, Best metric, Notes
 8. **Workspace** — Create `.lab/workspace/` for scratch files (scripts, test data, generated output). Use per-experiment subdirectories (e.g., `.lab/workspace/exp-3/`) when needed.
-9.  **Token Hygiene** — If not skipped, initialize `.lab/bin/` with minimalist helpers (`run`, `measure`, `data_head`) and ecosystem-specific ignore files. **Follow the [Token Hygiene Standards] below.**
+9. **Token Hygiene** — If not skipped, initialize `.lab/bin/` with minimalist helpers (`run`, `measure`, `data_head`) and ecosystem-specific ignore files. **Follow the [Token Hygiene Standards] below.**
 10. **Git ignore** — Add `.lab/` and `run.log` to `.gitignore`.
 11. **Baseline** — Record experiment #0 with NO changes. For quantitative: run the measure command. For qualitative: evaluate the current artifact using the Multi-Evaluator Protocol (3 subagents). Fill in baseline in config.
 12. **Start** — Begin autonomous work immediately. No announcements needed.

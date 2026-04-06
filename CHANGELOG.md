@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.5.0] - 2026-04-06
+
+### Added
+- **Token Hygiene** — new interview question (Phase 1) and setup step (Phase 2) for ecosystem-specific ignore/rules files and helper scripts (`.lab/bin/`) to reduce token usage
+- **Token Hygiene Standards** reference section — hard rules for `measure` and `data_head` helpers, context safety rules preventing accidental agent blinding
+
+### Changed
+- Configuration confirmation uses a compact table instead of full restatement; defaults shown as "default"
+
 ## [1.4.4] - 2026-03-29
 
 ### Changed
@@ -93,7 +102,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `GUIDE.md` — detailed usage guide
 - FAQ
 
-[Unreleased]: https://github.com/krzysztofdudek/ResearcherSkill/compare/v1.4.4...HEAD
+[Unreleased]: https://github.com/krzysztofdudek/ResearcherSkill/compare/v1.5.0...HEAD
+[1.5.0]: https://github.com/krzysztofdudek/ResearcherSkill/compare/v1.4.4...v1.5.0
 [1.4.4]: https://github.com/krzysztofdudek/ResearcherSkill/compare/v1.4.3...v1.4.4
 [1.4.3]: https://github.com/krzysztofdudek/ResearcherSkill/compare/v1.4.2...v1.4.3
 [1.4.2]: https://github.com/krzysztofdudek/ResearcherSkill/compare/v1.4.1...v1.4.2

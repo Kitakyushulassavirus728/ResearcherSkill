@@ -61,11 +61,13 @@ Before any experiment, understand the problem. Ask these questions conversationa
 4. **Constraints** — What is off-limits?
 5. **Run command** — How do we execute one experiment? Single command or chain (entire chain must succeed). May be omitted for qualitative-only research.
 6. **Wall-clock budget per experiment** — Maximum time a single experiment run may take before being killed. Default: **5 minutes**.
-7. **Termination** — When do we stop? Default: **infinite** (run until user interrupts or target is reached). Do not self-impose experiment limits. If the session ends (context limit, interruption), `.lab/` persists — the next session resumes via Phase 0.
+7. **Token Hygiene** — Incorporate ecosystem-specific ignore/rules files (for example, `.claudeignore`, `.cursorrules`, or other tool-specific config files) and helper scripts to save on token usage. If yes, then what agentic ecosystem are we using?
+8. **Termination** — When do we stop? Default: **infinite** (run until user interrupts or target is reached). Do not self-impose experiment limits. If the session ends (context limit, interruption), `.lab/` persists — the next session resumes via Phase 0.
    - *Target value*: stop when primary metric reaches X
    - *Experiment count*: stop after N experiments (only if the user explicitly requests it)
 
-Once you have answers, **repeat the configuration back** and get explicit confirmation before proceeding.
+Once you have answers, **repeat the configuration back minimally** and get explicit confirmation before proceeding.
+Use a compact table. If something is default, say “default” rather than restating details.
 
 ---
 
@@ -81,9 +83,10 @@ After confirmation:
 6. **Parking lot** — Create `.lab/parking-lot.md` for deferred ideas
 7. **Branch registry** — Create `.lab/branches.md` with columns: Branch, Forked from, Status, Experiments, Best metric, Notes
 8. **Workspace** — Create `.lab/workspace/` for scratch files (scripts, test data, generated output). Use per-experiment subdirectories (e.g., `.lab/workspace/exp-3/`) when needed.
-9. **Git ignore** — Add `.lab/` and `run.log` to `.gitignore`.
-10. **Baseline** — Record experiment #0 with NO changes. For quantitative: run the measure command. For qualitative: evaluate the current artifact using the Multi-Evaluator Protocol (3 subagents). Fill in baseline in config.
-11. **Start** — Begin autonomous work immediately. No announcements needed.
+9.  **Token Hygiene** — If not skipped, initialize `.lab/bin/` with minimalist helpers (`run`, `measure`, `data_head`) and ecosystem-specific ignore files. **Follow the [Token Hygiene Standards] (#token-hygiene-standards) below.**
+10. **Git ignore** — Add `.lab/` and `run.log` to `.gitignore`.
+11. **Baseline** — Record experiment #0 with NO changes. For quantitative: run the measure command. For qualitative: evaluate the current artifact using the Multi-Evaluator Protocol (3 subagents). Fill in baseline in config.
+12. **Start** — Begin autonomous work immediately. No announcements needed.
 
 ---
 
@@ -283,5 +286,22 @@ Tools when you're stuck, not a menu to follow. You have complete freedom to inve
 | All branches share the same core assumptions | Anchored — fork from baseline and invert |
 | Global best unchanged for 8+ experiments | Plateau — fork from baseline with inverted assumptions |
 | Dimension always scores neutral (e.g., 5/10) | Dimension unmeasurable — consider metric revision |
+
+</reference>
+
+
+<reference name="token-hygiene-standard">
+
+## Token Hygiene Standards
+
+### 1. Robust Helper Scripts (`.lab/bin/`)
+- **measure**: Must post-process raw output (awk/jq) to emit EXACTLY one numeric value. 
+  - *Hard Rule:* Must `tr -d '[:space:]'` to strip invisible characters.
+  - *Hard Rule:* Must exit non-zero if extraction fails or the underlying command fails.
+- **data_head**: Safe previewer. Use `head` for text. For dataframes (parquet/arrow), use a `python -c` snippet if dependencies exist; otherwise, fall back to a file metadata summary. Never dump raw binary.
+
+### 2. Context Safety
+- **Never exclude from agent context** `.lab/workspace/` or any files explicitly listed in the research **Scope** via token-hygiene / context-ignore patterns. This is separate from version-control ignores (e.g., it is still correct to add `.lab/` to `.gitignore`).
+- **Check-before-ignore (context filters only):** Verify context / token-hygiene ignore patterns (e.g., tool-specific context-ignore files) don't accidentally blind the agent to required inputs.
 
 </reference>

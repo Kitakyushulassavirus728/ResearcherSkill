@@ -8,10 +8,6 @@ This repository exists solely so the author can develop and version `researcher.
 
 `researcher.md` and `~/.claude/skills/researcher/SKILL.md` are clones. Any change to one MUST be applied to the other in the same operation. Never leave them out of sync.
 
-## Git workflow
-
-Always work on a feature branch. Never commit directly to main.
-
 ## Versioning
 
 This project uses [Semantic Versioning](https://semver.org/) and maintains a [CHANGELOG.md](CHANGELOG.md) following the [Keep a Changelog](https://keepachangelog.com/) format.

